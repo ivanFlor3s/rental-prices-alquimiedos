@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import barriosGeoData from '../../barrios-geo.json';
+import { useRouter } from 'next/navigation';
 
 interface CabaMapProps {
     onBarrioPress?: (barrioName: string) => void;
@@ -25,8 +26,12 @@ interface Barrio {
     };
 }
 
-const CabaMap: React.FC<CabaMapProps> = ({ onBarrioPress, selectedBarrio, width = 800, height = 600, className }) => {
+const CabaMap: React.FC<CabaMapProps> = ({ selectedBarrio, width = 800, height = 600, className }) => {
     const [barrios, setBarrios] = useState<Barrio[]>([]);
+    const router = useRouter();
+    const onBarrioPress = (barrioName: string) => {
+        router.push(`/barrio/${barrioName}`);
+    };
 
     useEffect(() => {
         const processGeoJSONData = () => {
