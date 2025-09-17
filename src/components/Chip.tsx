@@ -1,6 +1,6 @@
 'use client';
 
-export const Chip = ({ id, label, selected, selectorChanged }: { id: string; label: string; selected: boolean; selectorChanged: (id: string) => void }) => {
+export const Chip = ({ id, label, selected, selectorChanged }: { id: number; label: string; selected: boolean; selectorChanged: (id: number) => void }) => {
     const handleClick = () => {
         selectorChanged(id);
     };

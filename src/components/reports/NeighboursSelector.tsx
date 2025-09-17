@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { Chip } from '../Chip';
 
 export interface NeighbourItem {
-    id: string;
+    id: number;
     name: string;
     selected: boolean;
 }
 
-const NeighboursSelector: React.FC<{ neighbours: NeighbourItem[]; onSelectorChange: (selected: string[]) => void }> = ({ neighbours, onSelectorChange }) => {
-    const [selectedNeighbourId, setSelectedNeighbourId] = useState<string[]>([]);
+const NeighboursSelector: React.FC<{ neighbourhoods: NeighbourItem[]; onSelectorChange: (selected: number[]) => void }> = ({ neighbourhoods: neighbours, onSelectorChange }) => {
+    const [selectedNeighbourId, setSelectedNeighbourId] = useState<number[]>([]);
 
-    const handleChipClick = (id: string) => {
+    const handleChipClick = (id: number) => {
         const newSelected = selectedNeighbourId.includes(id) ? selectedNeighbourId.filter((neighbourId) => neighbourId !== id) : [...selectedNeighbourId, id];
         setSelectedNeighbourId(newSelected);
         onSelectorChange(newSelected);
