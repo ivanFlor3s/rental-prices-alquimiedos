@@ -1,30 +1,31 @@
-export interface MongoReport {
+export interface MongoReport<T> {
     metadata: Metadata
-    charts: Charts
+    labels: ChartLabels
+    filter: ChartFilters
+    data: T[]
 }
 
 export interface Metadata {
-    generated_at: Date
-    total_departments: number
-    total_neighborhoods: number
-    analysis_type: string
+    generatedAt: Date
+    totalDepartments: number
+    totalNeighborhoods: number
+    analysisType: string
 }
 
-export interface Charts {
-    prices_expenses_by_neighborhood: AveragePrices
+export interface ChartLabels {
+    x: string,
+    y: string
 }
 
-export interface AveragePrices {
-    title: string
-    y_axis_label: string
-    x_axis_label: string
-    data: NeighborAverageReportItem[]
+export interface ChartFilters {
+    rooms: number
 }
+
 
 export interface NeighborAverageReportItem {
     neighborhood: string
     neighborhoodId: number
-    average_expenses: number
-    average_price: number
-    count: number
+    averageExpense: number
+    averagePrice: number
+    sample: number
 }

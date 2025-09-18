@@ -1,7 +1,8 @@
 // lib/mongo.ts
 import { MongoClient, Db } from "mongodb";
-import { MongoReport } from "@/models/report";
+import { MongoReport, NeighborAverageReportItem } from "@/models/report";
 import { MongoNeighborhoods } from "@/models/neighborhood";
+import { metadata } from '../app/layout';
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
@@ -19,11 +20,16 @@ if (!global._mongoClientPromise) {
 }
 const clientPromise = global._mongoClientPromise;
 
-export async function getLatestReport(): Promise<MongoReport | null> {
+export async function getLatestMeanReport(filter: { rooms: number }): Promise<MongoReport<NeighborAverageReportItem> | null> {
   const client = await clientPromise;
   const db: Db = client.db(process.env.MONGO_INITDB_DATABASE || "rental_prices");
-  const latestReport = await db.collection<MongoReport>("reports")
-    .findOne({}, { sort: { "metadata.generated_at": -1 } });
+
+  const filtersForQuery = filter.rooms == 0 ? { "filters.rooms": null } : { "filters.rooms": filter.rooms };
+
+  const latestReport = await db.collection<MongoReport<NeighborAverageReportItem>>("reports").findOne(
+    { ...filtersForQuery, "metadata.analysisType": "mean prices" }, // ejemplo, depende de cómo guardaste la estructura
+    { sort: { "metadata.generatedAt": -1 } });
+
   return latestReport;
 }
 
