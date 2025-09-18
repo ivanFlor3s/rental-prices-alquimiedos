@@ -26,10 +26,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <Navbar />
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
                 <ViewTransition name="page">
-                    <main className="min-h-screen bg-gray-50">{children}</main>
+                    <main>{children}</main>
                 </ViewTransition>
             </body>
         </html>
