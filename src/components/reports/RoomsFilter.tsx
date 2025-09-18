@@ -58,8 +58,7 @@ const RoomFilter: React.FC<RoomFilterProps> = ({ maxRooms, selectedRoom, onRooms
                             {inputText}
 
                             {selection !== 0 && (
-                                <button
-                                    type="button"
+                                <div
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         clearSelection();
@@ -67,7 +66,7 @@ const RoomFilter: React.FC<RoomFilterProps> = ({ maxRooms, selectedRoom, onRooms
                                     className="ml-2 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer"
                                 >
                                     <span className="text-xs hover:underline">Remover</span>
-                                </button>
+                                </div>
                             )}
                         </span>
 
