@@ -1,6 +1,11 @@
 import EstadisticasChart from '@/components/reports/EstadisticasChart';
 import { MenuItem, SideMenu } from '@/components/SideMenu';
-const EstadisticasPage = () => {
+import { getNeighborhoods } from '@/lib/mongo-client';
+
+const EstadisticasPage = async () => {
+    const neighborhoodsFromDb = await getNeighborhoods();
+    const neighborhoods = neighborhoodsFromDb ? neighborhoodsFromDb.neighborhoods : [];
+
     const menu: MenuItem[] = [
         { name: 'Introducción', link: '#introduccion' },
         {
@@ -28,10 +33,10 @@ const EstadisticasPage = () => {
                         <SideMenu items={menu}></SideMenu>
                     </nav>
                     <main className="col-span-9 pl-15">
-                        <EstadisticasChart></EstadisticasChart>
-                        <EstadisticasChart></EstadisticasChart>
-                        <EstadisticasChart></EstadisticasChart>
-                        <EstadisticasChart></EstadisticasChart>
+                        <EstadisticasChart neighborhoods={neighborhoods}></EstadisticasChart>
+                        <EstadisticasChart neighborhoods={neighborhoods}></EstadisticasChart>
+                        <EstadisticasChart neighborhoods={neighborhoods}></EstadisticasChart>
+                        <EstadisticasChart neighborhoods={neighborhoods}></EstadisticasChart>
                     </main>
                 </div>
             </div>
