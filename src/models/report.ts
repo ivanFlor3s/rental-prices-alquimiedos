@@ -29,3 +29,10 @@ export interface NeighborAverageReportItem {
     averagePrice: number
     sample: number
 }
+
+export interface AveragePriceSurfaceReportItem {
+    neighborhoodId: number
+    neighborhoodName: string
+    averagePriceMM: number,
+    medianPriceMM: number
+}

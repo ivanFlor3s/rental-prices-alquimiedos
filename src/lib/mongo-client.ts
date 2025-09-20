@@ -1,8 +1,7 @@
 // lib/mongo.ts
 import { MongoClient, Db } from "mongodb";
-import { MongoReport, NeighborAverageReportItem } from "@/models/report";
+import { AveragePriceSurfaceReportItem, MongoReport, NeighborAverageReportItem } from "@/models/report";
 import { MongoNeighborhoods } from "@/models/neighborhood";
-import { metadata } from '../app/layout';
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
@@ -40,4 +39,16 @@ export const getNeighborhoods = async (): Promise<MongoNeighborhoods | null> => 
   const neighborhoods = await db.collection<MongoNeighborhoods>("neighborhoods").findOne({ "location": "CABA" });
   if (!neighborhoods) return null;
   return neighborhoods;
+}
+
+export const getLatestPriceSurfaceReport = async (): Promise<MongoReport<AveragePriceSurfaceReportItem> | null> => {
+  const client = await clientPromise;
+  const db: Db = client.db(process.env.MONGO_INITDB_DATABASE || "rental_prices");
+
+  const latestReport = await db.collection<MongoReport<AveragePriceSurfaceReportItem>>("reports").findOne(
+    { "metadata.analysisType": "surface" },
+    { sort: { "metadata.generatedAt": -1 } }
+  );
+
+  return latestReport;
 }
