@@ -1,17 +1,22 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Concert_One, Heebo, Rubik } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
+const concertOne = Concert_One({
+    variable: '--font-concert-one',
     subsets: ['latin'],
+    weight: ['400'],
 });
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
+const heebo = Heebo({
+    variable: '--font-heebo',
     subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+});
+const rubik = Rubik({
+    variable: '--font-rubik',
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -26,7 +31,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
+            <body className={`${heebo.variable} ${rubik.variable} antialiased ${concertOne.variable}`}>
                 <ViewTransition name="page">
                     <main>{children}</main>
                 </ViewTransition>
