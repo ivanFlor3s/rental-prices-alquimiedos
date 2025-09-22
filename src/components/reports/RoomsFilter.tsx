@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-interface RoomFilterProps {
+export interface RoomFilterProps {
     maxRooms: number;
     selectedRoom?: number;
     onRoomsChange: (rooms: number) => void;

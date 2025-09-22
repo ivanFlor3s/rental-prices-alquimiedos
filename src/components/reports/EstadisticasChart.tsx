@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Neighborhood as MongoNeighborhood } from '@/models/neighborhood';
 import { NeighborAverageReportItem } from '@/models/report';
 import RoomFilter from './RoomsFilter';
+import { RoomsFilterMobile } from './RoomsFilterMobile';
 
 const StackedCheckbox = ({ stacked, setStacked }: { stacked: boolean; setStacked: (stacked: boolean) => void }) => {
     return (
@@ -61,8 +62,13 @@ const EstadisticasChart: React.FC<{ neighborhoods: MongoNeighborhood[] }> = ({ n
                 <div className="col-span-8">
                     <NeighboursSelector onSelectorChange={handleNeighbourChange} neighbourhoods={neighborhoods.map((n) => ({ id: n.id, name: n.name, selected: false })).splice(0, 6)} />
                 </div>
-                <div className="flex flex-col col-span-4">
-                    <RoomFilter onRoomsChange={(rooms) => setFilter({ rooms })} maxRooms={3} />
+                <div className="col-span-4">
+                    <div className="hidden md:block">
+                        <RoomFilter onRoomsChange={(rooms) => setFilter({ rooms })} maxRooms={3} />
+                    </div>
+                    <div className="md:hidden">
+                        <RoomsFilterMobile onRoomsChange={(rooms) => setFilter({ rooms })} maxRooms={3} />
+                    </div>
                     {/* checkbox stacked */}
                 </div>
             </div>
