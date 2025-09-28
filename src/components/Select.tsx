@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 export interface SelectProps {
     label: string;
-    onSelectionChange: (rooms: number) => void;
+    onSelectionChange: (rooms: number | null) => void;
     options: NameValue<number>[];
     placeholder: string;
     selectedOption?: number;
@@ -14,7 +14,7 @@ export interface SelectProps {
 const Select: React.FC<SelectProps> = ({ options, selectedOption, onSelectionChange, placeholder, label }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputText, setInputText] = useState(placeholder);
-    const [selection, setSelection] = useState<number>(selectedOption || 0);
+    const [selection, setSelection] = useState<number | null>(selectedOption || null);
 
     const handleRoomToggle = (rooms: number) => {
         onSelectionChange(rooms);
@@ -24,8 +24,8 @@ const Select: React.FC<SelectProps> = ({ options, selectedOption, onSelectionCha
     };
 
     const clearSelection = () => {
-        onSelectionChange(0);
-        setSelection(0);
+        onSelectionChange(null);
+        setSelection(null);
         setInputText(placeholder);
     };
 
@@ -54,7 +54,7 @@ const Select: React.FC<SelectProps> = ({ options, selectedOption, onSelectionCha
                         <span className={` flex flex-row items-center ${selection ? 'text-blue-900 font-medium' : 'text-gray-500'}`}>
                             {inputText}
 
-                            {selection !== 0 && (
+                            {selection != null && (
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
