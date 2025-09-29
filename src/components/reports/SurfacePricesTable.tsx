@@ -49,9 +49,9 @@ export const SurfacePricesTable = ({ prices }: { prices: AveragePriceSurfaceRepo
     });
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-[500px]">
             <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-50 sticky top-0 z-10">
                     <tr>
                         <th scope="col" className=" px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none" onClick={() => handleSort('neighborhoodName')}>
                             <div className="flex flex-row gap-x-2 items-center">
