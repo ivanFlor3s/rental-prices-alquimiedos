@@ -1,11 +1,14 @@
 'use client';
-import { ResponsiveContainer, Bar, XAxis, YAxis, Legend, Tooltip, CartesianGrid, ComposedChart, BarChart } from 'recharts';
+import { ResponsiveContainer, Bar, XAxis, YAxis, Legend, Tooltip, CartesianGrid, BarChart } from 'recharts';
 import NeighboursSelector from './NeighboursSelector';
 import { useEffect, useState } from 'react';
 import { Neighborhood as MongoNeighborhood } from '@/models/neighborhood';
 import { NeighborAverageReportItem } from '@/models/report';
 import RoomFilter from './RoomsFilter';
 import { RoomsFilterMobile } from './RoomsFilterMobile';
+import { getDataFromLocalStorage, saveDataToLocalStorage } from '@/lib/local-storage';
+import { appConsts } from '@/models/app-consts';
+import MultiSelect from '../MultiSelect';
 
 const StackedCheckbox = ({ stacked, setStacked }: { stacked: boolean; setStacked: (stacked: boolean) => void }) => {
     return (
@@ -23,7 +26,7 @@ const EstadisticasChart: React.FC<{ neighborhoods: MongoNeighborhood[] }> = ({ n
     const [stacked, setStacked] = useState(true);
 
     const handleNeighbourChange = (selectedIds: number[]) => {
-        console.log('Barrios seleccionados:', selectedIds);
+        saveDataToLocalStorage(appConsts.LOCAL_STORAGE_KEYS.SELECTED_NEIGHBORHOODS, selectedIds);
         setSelectedIds(selectedIds);
     };
 
@@ -42,8 +45,12 @@ const EstadisticasChart: React.FC<{ neighborhoods: MongoNeighborhood[] }> = ({ n
         } catch (error) {
             console.error('Error parsing JSON:', error);
         }
-        // setChartData(data.sort((a, b) => a.average_price + a.average_expenses - (b.average_price + b.average_expenses)));
     };
+
+    useEffect(() => {
+        const stored = getDataFromLocalStorage<number[]>(appConsts.LOCAL_STORAGE_KEYS.SELECTED_NEIGHBORHOODS, []);
+        setSelectedIds(stored);
+    }, []);
 
     useEffect(() => {
         if (selectedIds.length > 0) {
@@ -55,25 +62,16 @@ const EstadisticasChart: React.FC<{ neighborhoods: MongoNeighborhood[] }> = ({ n
         <div className="w-full">
             <div className="mb-4">
                 <h1 className="text-4xl font-light text-center mb-4 text-balance">Alquiler y Expensas </h1>
-                <p className="text-gray-600">Comparación de costos de vivienda en diferentes barrios de CABA</p>
             </div>
 
-            <div className="grid grid-cols-12 mb-5">
-                <div className="col-span-8">
-                    <NeighboursSelector onSelectorChange={handleNeighbourChange} neighbourhoods={neighborhoods.map((n) => ({ id: n.id, name: n.name, selected: false })).splice(0, 6)} />
+            <div className="mb-5 flex flex-col md:flex-row gap-4">
+                <div className="flex-1">
+                    <MultiSelect label="Barrios" options={neighborhoods.map((n) => ({ value: n.id, name: n.name }))} onSelectionChange={handleNeighbourChange} selectedOptions={selectedIds} placeholder="Seleccionar barrios" />
                 </div>
-                <div className="col-span-4">
-                    <div className="hidden md:block">
-                        <RoomFilter onRoomsChange={(rooms) => setFilter({ rooms })} maxRooms={3} />
-                    </div>
-                    <div className="md:hidden">
-                        <RoomsFilterMobile onRoomsChange={(rooms) => setFilter({ rooms })} maxRooms={3} />
-                    </div>
-                    {/* checkbox stacked */}
-                </div>
+                <RoomsFilterMobile onRoomsChange={(rooms) => setFilter({ rooms })} maxRooms={3} />
             </div>
 
-            {chartData.length > 0 && (
+            {chartData.length > 0 && selectedIds.length > 0 && (
                 <>
                     <StackedCheckbox stacked={stacked} setStacked={setStacked} />
                     <ResponsiveContainer width="100%" height={500}>

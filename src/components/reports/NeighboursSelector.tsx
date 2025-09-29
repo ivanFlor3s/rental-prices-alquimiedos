@@ -7,17 +7,18 @@ export interface NeighbourItem {
     selected: boolean;
 }
 
-const NeighboursSelector: React.FC<{ neighbourhoods: NeighbourItem[]; onSelectorChange: (selected: number[]) => void; single?: boolean }> = ({ neighbourhoods: neighbours, onSelectorChange, single }) => {
-    const [selectedNeighbourId, setSelectedNeighbourId] = useState<number[]>([]);
-
+const NeighboursSelector: React.FC<{ neighbourhoods: NeighbourItem[]; onSelectorChange: (selected: number[]) => void; selectedNeighbourId: number[]; single?: boolean }> = ({
+    neighbourhoods: neighbours,
+    onSelectorChange,
+    single,
+    selectedNeighbourId,
+}) => {
     const handleChipClick = (id: number) => {
         if (single) {
             const newSelected = selectedNeighbourId.includes(id) ? [] : [id];
-            setSelectedNeighbourId(newSelected);
             onSelectorChange(newSelected);
         } else {
             const newSelected = selectedNeighbourId.includes(id) ? selectedNeighbourId.filter((neighbourId) => neighbourId !== id) : [...selectedNeighbourId, id];
-            setSelectedNeighbourId(newSelected);
             onSelectorChange(newSelected);
         }
     };

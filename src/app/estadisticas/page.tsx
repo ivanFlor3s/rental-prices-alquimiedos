@@ -38,17 +38,12 @@ const EstadisticasPage = async () => {
     ];
     return (
         <>
-            <div className="max-w-[1000px] mx-auto mt-5 md:mt-10">
-                <div className="hidden md:grid grid-cols-12 ">
-                    <nav className="max-h-screen overflow-y-auto border-b border-gray-200 mb-4 col-span-3 sticky top-0">
+            <div className="max-w-[1000px] mx-6 md:mx-auto mt-5 md:mt-10">
+                <div className="grid grid-cols-12 ">
+                    <nav className="hidden md:block max-h-screen overflow-y-auto border-b border-gray-200 mb-4 md:col-span-3 sticky top-0">
                         <SideMenu items={menu}></SideMenu>
                     </nav>
-                    <main className="col-span-9 pl-15">
-                        <ChartsContent neighborhoods={neighborhoods} surfacePrices={surfacePrices} />
-                    </main>
-                </div>
-                <div className="md:hidden px-10">
-                    <main>
+                    <main className="col-span-12 md:col-span-9  md:pl-15">
                         <ChartsContent neighborhoods={neighborhoods} surfacePrices={surfacePrices} />
                     </main>
                 </div>
