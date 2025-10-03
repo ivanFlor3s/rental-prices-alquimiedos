@@ -72,11 +72,11 @@ export default function Reports() {
         <>
             <div className="max-w-[1000px] mx-6 md:mx-auto mt-5 md:mt-10">
                 <div className="grid grid-cols-12 ">
-                    <div className="col-span-4 mr-8">
+                    <div className="col-span-12 md:col-span-5 px-4 lg:col-span-4 mb-4 md:mb-0">
                         <ReportFilters />
                     </div>
 
-                    <div className="col-span-8">
+                    <div className="col-span-12 md:col-span-7 lg:col-span-8">
                         {reports.map((report) => (
                             <ReportListItem key={report.id} {...report} />
                         ))}

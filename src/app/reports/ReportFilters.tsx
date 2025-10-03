@@ -78,7 +78,7 @@ const ReportFilters = () => {
         <div className="">
             {/* INPUT FILTER */}
 
-            <label className="block text-sm" htmlFor="search">
+            <label className="block text-sm font-medium text-gray-700" htmlFor="search">
                 Buscar
             </label>
             <input
@@ -89,15 +89,15 @@ const ReportFilters = () => {
                 className="border border-gray-300 px-2 py-1 rounded-md mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 "
             />
 
-            <div className="flex flex-col gap-y-3">
+            <div className="flex flex-col gap-y-2 md:gap-y-3">
                 {/* SELECT OPERACION */}
-                <Select<string> placeholder="Selecciona una operación" label="Operación" options={operations} onSelectionChange={(value) => updateFilters(value?.toString() || '', 'operationType')} />
+                <Select<string> placeholder="" label="Operación" options={operations} onSelectionChange={(value) => updateFilters(value?.toString() || '', 'operationType')} />
 
                 {/* SELECT TIPO DE PROPIEDAD */}
-                <Select<string> placeholder="Selecciona un tipo de propiedad" label="Tipo de Propiedad" options={propertyTypes} onSelectionChange={(value) => updateFilters(value?.toString() || '', 'propertyType')} />
+                <Select<string> placeholder="" label="Tipo de Propiedad" options={propertyTypes} onSelectionChange={(value) => updateFilters(value?.toString() || '', 'propertyType')} />
 
                 {/* SELECT PROVEEDOR */}
-                <Select<string> placeholder="Selecciona un proveedor" label="Proveedor" options={providers} onSelectionChange={(value) => updateFilters(value?.toString() || '', 'provider')} />
+                <Select<string> placeholder="" label="Proveedor" options={providers} onSelectionChange={(value) => updateFilters(value?.toString() || '', 'provider')} />
                 {/* BUTTONS */}
                 <div className="flex justify-end">
                     <button type="button" className="bg-blue-500  px-2 py-1 rounded-md" onClick={handleSubmit}>
