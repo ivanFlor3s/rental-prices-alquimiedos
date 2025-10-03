@@ -3,20 +3,20 @@
 import { NameValue } from '@/models/name-value';
 import React, { useEffect, useState } from 'react';
 
-export interface SelectProps {
+export interface SelectProps<T> {
     label: string;
-    onSelectionChange: (rooms: number | null) => void;
-    options: NameValue<number>[];
+    onSelectionChange: (value: T | null) => void;
+    options: NameValue<T>[];
     placeholder: string;
-    selectedOption?: number;
+    selectedOption?: T | null;
 }
 
-const Select: React.FC<SelectProps> = ({ options, selectedOption, onSelectionChange, placeholder, label }) => {
+const Select = <T,>({ options, selectedOption, onSelectionChange, placeholder, label }: SelectProps<T>) => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputText, setInputText] = useState(placeholder);
-    const [selection, setSelection] = useState<number | null>(selectedOption || null);
+    const [selection, setSelection] = useState<T | null>(selectedOption || null);
 
-    const handleRoomToggle = (rooms: number) => {
+    const handleRoomToggle = (rooms: T) => {
         onSelectionChange(rooms);
         setIsOpen(false);
         setSelection(rooms);
@@ -35,7 +35,7 @@ const Select: React.FC<SelectProps> = ({ options, selectedOption, onSelectionCha
 
     return (
         <div className="relative">
-            <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+            <label className="block text-sm font-medium text-gray-700 ">{label}</label>
 
             {/* Selector principal */}
             <div className="relative">
@@ -84,7 +84,7 @@ const Select: React.FC<SelectProps> = ({ options, selectedOption, onSelectionCha
 
                                 return (
                                     <button
-                                        key={option.value}
+                                        key={String(option.value)}
                                         type="button"
                                         onClick={() => handleRoomToggle(option.value)}
                                         className={`

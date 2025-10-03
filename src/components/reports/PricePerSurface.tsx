@@ -63,7 +63,7 @@ const PricePerSurface = ({ surfacePrices, neighborhoods }: { surfacePrices: Aver
             <h1 className="text-4xl font-light text-center mb-4 text-balance">Superficie (valor por m²) </h1>
 
             <div className="w-full md:w-1/2 mb-8">
-                <Select label="" placeholder="Selecciona un barrio" options={neighborhoods.map((n) => ({ value: n.id, name: n.name }))} onSelectionChange={handleNeighbourChange} />
+                <Select<number> label="" placeholder="Selecciona un barrio" options={neighborhoods.map((n) => ({ value: n.id, name: n.name }))} onSelectionChange={handleNeighbourChange} />
             </div>
             <SurfacePricesTable prices={filteredPrices} />
         </div>
