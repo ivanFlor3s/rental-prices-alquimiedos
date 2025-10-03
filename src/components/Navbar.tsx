@@ -23,20 +23,14 @@ const Navbar = () => {
                     {/* Menú desktop */}
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
-                            <Link href="/" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                                Mapa
+                            <Link href="/reports" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                Reportes
                             </Link>
                             <Link href="/buscar" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                                Buscar
+                                Historico
                             </Link>
-                            <Link href="/estadisticas" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                                Estadísticas
-                            </Link>
-                            <Link href="/barrios" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                                Barrios
-                            </Link>
-                            <Link href="/contacto" className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                                Contacto
+                            <Link href="/datasets" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                Datasets
                             </Link>
                         </div>
                     </div>
